@@ -1,0 +1,23 @@
+
+
+- name: "Change to /usr/local dir"
+  shell: sudo cd /usr/local
+
+- name: Git Repository - Lynis
+  git:
+    repo: https://github.com/CISOfy/lynis
+    dest: /usr/local/lynis
+    clone: yes
+    update: yes
+    #force: yes
+  become_user: root
+  become: true
+
+- name: "Copy Run-Lynis File"
+  copy:
+    src:  "{{ansible_roles_path}}/files/mgmtUtil/run-lynis.sh"
+    dest: /opt/mgmtUtil/
+    owner: ansible-c
+    group: ans-admin
+    mode: '755'
+  become_user: root
